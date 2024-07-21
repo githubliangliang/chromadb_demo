@@ -99,7 +99,8 @@ print(results)
 }
 ```
 
-## embedding启动
+## embedding
+生成向量
 
 见chrom_embedding.py
 
@@ -125,7 +126,33 @@ print(results)
 }
 ```
 
+## metadata 元数据
+相当个文档打标签,查询的时候,可以指定标签,只返回指定标签的文档
+见chrom_metadata.py
 
+结果如下
+```
+{
+	'ids': [
+		['id1']
+	],
+	'distances': [
+		[0.6507691740989685]
+	],
+	'metadatas': [
+		[{
+			'character': '20'
+		}]
+	],
+	'embeddings': None,
+	'documents': [
+		['This is a document about pineapple']
+	],
+	'uris': None,
+	'data': None,
+	'included': ['metadatas', 'documents', 'distances']
+}
+```
 
 
 
