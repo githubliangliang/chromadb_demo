@@ -25,7 +25,11 @@ collection.upsert(
 )
 
 results = collection.query(
-    where={"character": "20"},
+    where={
+        "character": {
+            "$eq": "20"
+        }
+    },
     query_texts=["This is a query document about florida"], # Chroma will embed this for you
     n_results=2  # how many results to return
 )

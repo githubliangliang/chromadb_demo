@@ -130,6 +130,36 @@ print(results)
 相当个文档打标签,查询的时候,可以指定标签,只返回指定标签的文档
 见chrom_metadata.py
 
+查询character = 20 的数据
+```
+results = collection.query(
+    where={"character": "20"}, # 默认是$eq
+    query_texts=["This is a query document about florida"], # Chroma will embed this for you
+    n_results=2  # how many results to return
+)
+```
+等同于
+```
+results = collection.query(
+    where={
+        "character": {
+            "$eq": "20"
+        }
+    },
+    query_texts=["This is a query document about florida"], # Chroma will embed this for you
+    n_results=2  # how many results to return
+)
+```
+### collection where 比较运算符
+```
+$eq - equal to (string, int, float) 
+$ne - not equal to (string, int, float)
+$gt - greater than (int, float)
+$gte - greater than or equal to (int, float)
+$lt - less than (int, float)
+$lte - less than or equal to (int, float)
+```
+
 结果如下
 ```
 {
@@ -155,4 +185,41 @@ print(results)
 ```
 
 
+### 运算符-补充
+#### 多条件 与/或
+```
+{
+    "$and":[
+        "character": {
+            "$eq": "20"
+        },
+        "character": {
+            "$eq": "21"
+        }
+   ]
+}
+```
+```
+{
+    "$or":[
+        "character": {
+            "$eq": "20"
+        },
+        "character": {
+            "$eq": "21"
+        }
+   ]
+}
+```
+#### 包含查询 (in/not in)
+```
+"character": {
+    "$in": ["20","21"]
+}
+```
+```
+"character": {
+    "$nin": ["20","21"]
+}
+```
 
