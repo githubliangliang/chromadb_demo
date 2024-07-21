@@ -231,7 +231,37 @@ pip install langchain langchain-chroma langchain-openai langchain_community
 
 ### 直接 通过模型搜索 文档
 详见 chroma_model.py
+结果如下
+```
+[
+Document(page_content='This is a document about dog'),
+Document(page_content='This is a document about fish'),
+Document(page_content='This is a document about banana')
+]
+```
 
 ### 本地创建知识库,并通过模型搜索
 
 详见chroma_model_client_server.py
+
+结果如下
+```
+[
+Document(page_content='This is a document about dog'),
+Document(page_content='This is a document about fish'),
+Document(page_content='This is a document about banana')
+]
+```
+
+### httpclient创建知识库,并通过模型搜索
+
+详见chroma_model_client_server_http.py
+
+结果如下
+```
+[
+Document(page_content='This is a document about dog'),
+Document(page_content='This is a document about fish'),
+Document(page_content='This is a document about banana')
+]
+```
