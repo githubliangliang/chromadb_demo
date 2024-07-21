@@ -223,3 +223,15 @@ $lte - less than or equal to (int, float)
 }
 ```
 
+## 在线模型 知识库向量搜索
+### 安装依赖
+```shell
+pip install langchain langchain-chroma langchain-openai langchain_community
+```
+
+### 直接 通过模型搜索 文档
+详见 chroma_model.py
+
+### 本地创建知识库,并通过模型搜索
+
+详见chroma_model_client_server.py
