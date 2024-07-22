@@ -3,6 +3,8 @@
 
 https://docs.trychroma.com/ 
 
+## 基础环境
+
 | 环境        | 版本    |
 |-----------|-------|
 | python    | 3.10  |
@@ -266,7 +268,8 @@ Document(page_content='This is a document about banana')
 ]
 ```
 
-## 对话搜索知识库
+## 对话搜索知识库  
+### txt
 安装必须的依赖
 ```shell
 pip install unstructured
@@ -277,3 +280,10 @@ pip install python-magic-bin==0.4.14
 
 结果如下
 ![img.png](images/chroma_model_local_knowledge.png)
+
+### pdf
+```shell
+pip install pillow-heif
+pip install langchain-experimental
+```
+详见 chroma_model_local_knowledge_pdf.py

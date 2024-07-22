@@ -1,6 +1,8 @@
+import os
+
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 from langchain_chroma import Chroma
-from langchain_community.document_loaders import DirectoryLoader
+from langchain_community.document_loaders import DirectoryLoader, PyPDFium2Loader
 from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain_text_splitters import TokenTextSplitter
@@ -8,17 +10,24 @@ from langchain_text_splitters import TokenTextSplitter
 import api_key
 
 
+
 # 加载文档
 def load_documents(directory):
-    loader = DirectoryLoader(directory, glob="**/*.txt")
-    docs = loader.load()
+    # loader = DirectoryLoader(directory, glob="**/*.pdf")
+    # docs = loader.load()
+    docs = []
+    for doc in os.listdir(directory):
+        doc_path = f'{directory}/{doc}'
+        if doc_path.endswith('.pdf'):
+            loader = PyPDFium2Loader(file_path=doc_path)
+            docs.extend(loader.load())
     return docs
 
 
 # 分割文档 pdf:PyMuPDFLoader ;  markdown:UnstructuredMarkdownLoader
 def split_documents(docs):
     # 创建TokenTextSplitter对象，用于分割文档
-    text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0)
+    text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=200)
     docs_texts = text_splitter.split_documents(docs)  # 分割加载的文本
     return docs_texts  # 返回分割后的文本
 
@@ -44,7 +53,8 @@ def create_openai(chroma):
         openai_api_key=api_key.dashscope_api_key,
         temperature=0,
         model="qwen-max",
-        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",  # https://help.aliyun.com/zh/dashscope/developer-reference/compatibility-of-openai-with-dashscope?spm=a2c4g.11186623.0.0.65fe46c1CllXqx#414defd168byq
+        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+        # https://help.aliyun.com/zh/dashscope/developer-reference/compatibility-of-openai-with-dashscope?spm=a2c4g.11186623.0.0.65fe46c1CllXqx#414defd168byq
     )
     # 从模型和向量检索器创建ConversationalRetrievalChain对象
     chain = ConversationalRetrievalChain.from_llm(openai_ojb, chroma.as_retriever())
