@@ -265,3 +265,15 @@ Document(page_content='This is a document about fish'),
 Document(page_content='This is a document about banana')
 ]
 ```
+
+## 对话搜索知识库
+安装必须的依赖
+```shell
+pip install unstructured
+pip uninstall python-magic
+pip install python-magic-bin==0.4.14
+```
+详见 chroma_model_local_knowledge.py
+
+结果如下
+![img.png](images/chroma_model_local_knowledge.png)
